@@ -4,14 +4,25 @@ using NUnit.Framework;
 using Moq;
 using Foreman;
 
-public class JobTests {
+namespace Foreman.Test
+{
+    public class JobTests
+    {
 
-	[Test]
-	public void JobStateChanges()
-	{
-        Mock<Job> mock = new Mock<Job>();
+        [Test]
+        public void JobStateChanges()
+        {
+            Mock<Job> mock = new Mock<Job>();
 
-        Job job = mock.Object;
+            Job job = mock.Object;
+            Assert.AreEqual(job.Status, JobStatus.WAITING);
 
+            job.Start();
+            Assert.AreEqual(job.Status, JobStatus.INPROGRESS);
+
+            job.Pause();
+            Assert.AreEqual(job.Status, JobStatus.SUSPENDED);
+
+        }
     }
 }
