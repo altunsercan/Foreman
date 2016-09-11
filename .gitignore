@@ -30,4 +30,6 @@ sysinfo.txt
 *.unitypackage
 
 
+/UnityTestTools.meta
 /UnityTestTools/
+LICENSE.meta
