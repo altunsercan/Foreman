@@ -1,0 +1,4 @@
+[submodule "Foreman/Testing"]
+	path = Foreman/Testing
+	url = git@github.com:altunsercan/Foreman.git
+	branch = test
