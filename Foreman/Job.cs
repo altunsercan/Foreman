@@ -6,7 +6,6 @@
         string Identifier { get; }
 
         JobStatus Status { get; }
-        JobBehaviours Behaviour { get; }
 
         bool Suspend();
         bool Pause();

@@ -4,6 +4,8 @@
     {
         WAITING,
         INPROGRESS,
-        SUSPENDED
+        SUSPENDED,
+        PAUSED,
+        CANCELLED
     }
 }
