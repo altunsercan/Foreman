@@ -7,7 +7,7 @@ namespace Foreman
 
         bool RemoveJob(Job job);
         bool QueueJob(Job job);
-        bool Work(Job job);
+        bool Work(Job job = null);
 
         Job[] Queued { get; }
     }
