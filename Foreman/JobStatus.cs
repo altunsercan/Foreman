@@ -6,6 +6,7 @@
         INPROGRESS,
         SUSPENDED,
         PAUSED,
-        CANCELLED
+        CANCELLED,
+        COMPLETED
     }
 }

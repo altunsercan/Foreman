@@ -93,5 +93,16 @@ namespace Foreman.Impl
 
             return false;
         }
+
+        public bool Complete()
+        {
+            if (_status == JobStatus.COMPLETED)
+            {
+                return false;
+            }
+            
+            _status = JobStatus.COMPLETED;
+            return true;
+        }
     }
 }
