@@ -1,4 +1,5 @@
-﻿namespace Foreman
+﻿using System;
+namespace Foreman
 {
     public interface Job
     {
@@ -6,6 +7,7 @@
         string Identifier { get; }
 
         JobStatus Status { get; }
+        event Action<JobStatus> StatusChanged;
 
         bool Suspend();
         bool Pause();

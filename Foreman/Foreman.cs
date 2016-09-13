@@ -26,6 +26,12 @@ namespace Foreman
                 JobHandler behaviour = provider.CreateHandler(jobData, gameObj);
                 if(behaviour!=null)
                 {
+                    if(behaviour is MonoBehaviour)
+                    {
+                        (behaviour as MonoBehaviour).enabled = false;
+                    }
+
+                    behaviour.AssignJobData(jobData);
                     return behaviour;
                 }
             }

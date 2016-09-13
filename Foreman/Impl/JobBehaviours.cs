@@ -10,7 +10,7 @@ namespace Foreman
         {
             if(jobData is T)
             {
-                AssignJobData(jobData);
+                AssignJobData((T)jobData);
             }
         }
 

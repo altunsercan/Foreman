@@ -37,24 +37,35 @@ namespace Foreman.Impl
             {
                 return _status;
             }
+
+            private set
+            {
+                _status = value;
+                if( StatusChanged != null )
+                {
+                    StatusChanged(_status);
+                }
+            }
         }
+
+        public event Action<JobStatus> StatusChanged;
 
         public bool Cancel()
         {
-           if( _status == JobStatus.CANCELLED )
+           if( Status == JobStatus.CANCELLED )
             {
                 return false;
             }
 
-            _status = JobStatus.CANCELLED;
+            Status = JobStatus.CANCELLED;
             return true;
         }
 
         public bool Continue()
         {
-            if (_status == JobStatus.PAUSED)
+            if (Status == JobStatus.PAUSED)
             {
-                _status = JobStatus.PAUSED;
+                Status = JobStatus.PAUSED;
                 return true;
             }
 
@@ -63,9 +74,9 @@ namespace Foreman.Impl
 
         public bool Pause()
         {
-            if (_status == JobStatus.INPROGRESS)
+            if (Status == JobStatus.INPROGRESS)
             {
-                _status = JobStatus.SUSPENDED;
+                Status = JobStatus.SUSPENDED;
                 return true;
             }
 
@@ -74,9 +85,9 @@ namespace Foreman.Impl
 
         public bool Start()
         {
-            if (_status == JobStatus.SUSPENDED || _status == JobStatus.WAITING)
+            if (Status == JobStatus.SUSPENDED || Status == JobStatus.WAITING)
             {
-                _status = JobStatus.INPROGRESS;
+                Status = JobStatus.INPROGRESS;
                 return true;
             }
 
@@ -85,9 +96,9 @@ namespace Foreman.Impl
 
         public bool Suspend()
         {
-            if (_status == JobStatus.INPROGRESS || _status == JobStatus.WAITING)
+            if (Status == JobStatus.INPROGRESS || _status == JobStatus.WAITING)
             {
-                _status = JobStatus.SUSPENDED;
+                Status = JobStatus.SUSPENDED;
                 return true;
             }
 
@@ -96,12 +107,12 @@ namespace Foreman.Impl
 
         public bool Complete()
         {
-            if (_status == JobStatus.COMPLETED)
+            if (Status == JobStatus.COMPLETED)
             {
                 return false;
             }
-            
-            _status = JobStatus.COMPLETED;
+
+            Status = JobStatus.COMPLETED;
             return true;
         }
     }

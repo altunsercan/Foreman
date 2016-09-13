@@ -6,10 +6,11 @@ namespace Foreman.Impl
     public class MonoWorker : MonoBehaviour, Worker
     {
         private JobHandler _jobHandler;
+        private Job _currentJob;
 
         private WorkerState _state;
 
-        private List<Job> _queuedJobs;
+        private List<Job> _queuedJobs = new List<Job>();
 
         public Job[] Queued
         {
@@ -60,10 +61,41 @@ namespace Foreman.Impl
                 return false;
             }
 
+            _currentJob = job;
             _jobHandler = Foreman.CreateHandler(job, this.gameObject);
 
             job.Start();
+            if (_jobHandler is MonoBehaviour)
+            {
+                (_jobHandler as MonoBehaviour).enabled = true;
+            }
+
+            job.StatusChanged += OnJobStatusChanged;
+            _state = WorkerState.BUSY;
+
             return true;
+        }
+
+        private void OnJobStatusChanged(JobStatus status)
+        {
+            if(status == JobStatus.COMPLETED)
+            {
+                _currentJob.StatusChanged -= OnJobStatusChanged;
+
+                _queuedJobs.Remove(_currentJob);
+
+                if( _jobHandler is MonoBehaviour)
+                {
+                    Destroy(_jobHandler as MonoBehaviour);
+                }
+                _currentJob = null;
+                _jobHandler = null;
+
+                if( !this.Work() )
+                {
+                    _state = WorkerState.IDLE;
+                }
+            }
         }
     }
 }
