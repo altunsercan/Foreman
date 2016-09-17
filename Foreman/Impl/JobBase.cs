@@ -1,25 +1,29 @@
-﻿using System;
-
+﻿// /*
+//  * Copyright (C) 2016 Sercan Altun
+//  * All rights reserved.
+//  *
+//  * This software may be modified and distributed under the terms
+//  * of open source MIT license.  See the LICENSE file for details.
+//  */
 namespace Foreman.Impl
 {
     public abstract class JobBase : Job
     {
-        private string _name;
-        private string _identifier;
+        private readonly string _identifier;
 
-        private JobStatus _status = JobStatus.WAITING;
+        private readonly string _name;
 
-        public JobBase(string name, string identifier)
+        protected JobBase(string name, string identifier)
         {
-            _identifier = identifier;
-            _name = name;
+            this._identifier = identifier;
+            this._name = name;
         }
-        
+
         public string Identifier
         {
             get
             {
-                return _identifier;
+                return this._identifier;
             }
         }
 
@@ -27,93 +31,8 @@ namespace Foreman.Impl
         {
             get
             {
-                return _name;
+                return this._name;
             }
-        }
-
-        public JobStatus Status
-        {
-            get
-            {
-                return _status;
-            }
-
-            private set
-            {
-                _status = value;
-                if( StatusChanged != null )
-                {
-                    StatusChanged(_status);
-                }
-            }
-        }
-
-        public event Action<JobStatus> StatusChanged;
-
-        public bool Cancel()
-        {
-           if( Status == JobStatus.CANCELLED )
-            {
-                return false;
-            }
-
-            Status = JobStatus.CANCELLED;
-            return true;
-        }
-
-        public bool Continue()
-        {
-            if (Status == JobStatus.PAUSED)
-            {
-                Status = JobStatus.PAUSED;
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool Pause()
-        {
-            if (Status == JobStatus.INPROGRESS)
-            {
-                Status = JobStatus.SUSPENDED;
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool Start()
-        {
-            if (Status == JobStatus.SUSPENDED || Status == JobStatus.WAITING)
-            {
-                Status = JobStatus.INPROGRESS;
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool Suspend()
-        {
-            if (Status == JobStatus.INPROGRESS || _status == JobStatus.WAITING)
-            {
-                Status = JobStatus.SUSPENDED;
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool Complete()
-        {
-            if (Status == JobStatus.COMPLETED)
-            {
-                return false;
-            }
-
-            Status = JobStatus.COMPLETED;
-            return true;
         }
     }
 }

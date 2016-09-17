@@ -1,18 +1,21 @@
-﻿using System;
+﻿// /*
+//  * Copyright (C) 2016 Sercan Altun
+//  * All rights reserved.
+//  *
+//  * This software may be modified and distributed under the terms
+//  * of open source MIT license.  See the LICENSE file for details.
+//  */
 namespace Foreman
 {
     public interface Job
     {
-        string Name { get; }
         string Identifier { get; }
 
-        JobStatus Status { get; }
-        event Action<JobStatus> StatusChanged;
+        string Name { get; }
+    }
 
-        bool Suspend();
-        bool Pause();
-        bool Continue();
-        bool Start();
-        bool Cancel();
+    public interface CompoundJob : Job
+    {
+        Job[] SubJobs { get; }
     }
 }
