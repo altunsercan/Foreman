@@ -2,6 +2,7 @@
 using UnityEditor;
 using NUnit.Framework;
 using Moq;
+using System.Collections.Generic;
 
 namespace Foreman.Test
 {
@@ -20,10 +21,8 @@ namespace Foreman.Test
             worker.QueueJob(jobMockFactory.Create<Job>().Object);
             worker.QueueJob(jobMockFactory.Create<Job>().Object);
             worker.QueueJob(jobMockFactory.Create<Job>().Object);
-
-            Job[] queued = worker.Queued;
-
-            Assert.AreEqual(queued.Length, 3);
+            
+            Assert.AreEqual(worker.Queued.Length, 3);
         }
     }
 

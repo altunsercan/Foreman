@@ -8,7 +8,7 @@ namespace Foreman.Test
 {
     public class JobTests
     {
-
+        /*
         [Test]
         public void JobStateChanges()
         {
@@ -23,6 +23,6 @@ namespace Foreman.Test
             job.Pause();
             Assert.AreEqual(job.Status, JobStatus.SUSPENDED);
 
-        }
+        }*/
     }
 }
