@@ -1,32 +1,44 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
-using System;
-
+﻿// /*
+//  * Copyright (C) 2016 Sercan Altun
+//  * All rights reserved.
+//  *
+//  * This software may be modified and distributed under the terms
+//  * of open source MIT license.  See the LICENSE file for details.
+//  */
 namespace Foreman
 {
-    public class Foreman
-    {
-        private static List<JobHandlerProvider> _behaviourProviderList = new List<JobHandlerProvider>();
+    using System.Collections.Generic;
 
-        public static bool AddProvider( JobHandlerProvider provider )
+    using UnityEngine;
+
+    public static class Foreman
+    {
+        private static readonly List<JobHandlerProvider> BehaviourProviderList = new List<JobHandlerProvider>();
+
+        public static bool AddProvider(JobHandlerProvider provider)
         {
-            if( _behaviourProviderList.Contains(provider))
+            if (BehaviourProviderList.Contains(provider))
             {
                 return false;
             }
 
-            _behaviourProviderList.Add(provider);
+            BehaviourProviderList.Add(provider);
             return true;
+        }
+
+        public static void ClearProviders()
+        {
+            BehaviourProviderList.Clear();
         }
 
         public static JobHandler CreateHandler(Job jobData, GameObject gameObj)
         {
-            foreach( JobHandlerProvider provider in _behaviourProviderList )
+            foreach (JobHandlerProvider provider in BehaviourProviderList)
             {
                 JobHandler behaviour = provider.CreateHandler(jobData, gameObj);
-                if(behaviour!=null)
+                if (behaviour != null)
                 {
-                    if(behaviour is MonoBehaviour)
+                    if (behaviour is MonoBehaviour)
                     {
                         (behaviour as MonoBehaviour).enabled = false;
                     }
@@ -35,6 +47,7 @@ namespace Foreman
                     return behaviour;
                 }
             }
+
             return null;
         }
     }
