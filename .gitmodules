@@ -2,3 +2,6 @@
 	path = Foreman/Testing
 	url = git@github.com:altunsercan/Foreman.git
 	branch = test
+[submodule "Foreman/External/FlatStates"]
+	path = Foreman/External/FlatStates
+	url = git@github.com:altunsercan/FlatStates.git
