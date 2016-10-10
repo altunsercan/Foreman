@@ -5,3 +5,6 @@
 [submodule "Foreman/External/FlatStates"]
 	path = Foreman/External/FlatStates
 	url = git@github.com:altunsercan/FlatStates.git
+[submodule "Foreman/Impl/Axiom"]
+	path = Foreman/Impl/Axiom
+	url = git@github.com:altunsercan/Foreman.git
